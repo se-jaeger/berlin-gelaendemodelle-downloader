@@ -32,7 +32,7 @@ berlin_downloader download ~/berlin_height --compress 5 --keep_original
 - [x] Download the whole dataset
 - [x] Compress it on the fly (choose tile size (2000 should be divisible by tile size without remainder))
 - [x] Keep original data (flag)
-- [ ] Publish to https://pypi.org
+- [x] Publish to https://pypi.org
 - [ ] choose download file data type
 
 
