@@ -25,7 +25,7 @@ def file_content_2_data_frame(file_content: str) -> DataFrame:
 
 def data_frame_2_file_content(data_frame: DataFrame) -> list:
     """
-    Converts the given 'data_frame' into a list of lines as file content
+    Converts the given ``data_frame`` into a list of lines as file content
 
     Args:
         data_frame: to be serialized
@@ -40,7 +40,7 @@ def data_frame_2_file_content(data_frame: DataFrame) -> list:
 
 def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
     """
-    Compress the given ``DataFrame``. Uses windows of size ``tile_size``x``tile_size`` and calculates their mean.
+    Compress the given ``DataFrame``. Uses windows of size ':math:`tile\ size \\times tile\ size`' and calculates their mean.
 
     Use convolution algorithm to compress the neighboring tiles. TODO: see documentation to get an intuition about the convolution implementation.
 
@@ -98,8 +98,7 @@ def create_directories(download_path: str, keep_original: bool) -> (str, str):
         keep_original (bool): indicates whether the original directory is necessary or not.
 
     Returns:
-        str: path for original files
-        str: path for compressed files
+        str, str: path for original files, path for compressed files
     """
 
     original_path = os.path.join(download_path, ORIGNAL_SUB_PATH)
