@@ -20,3 +20,4 @@ Click
 beautifulsoup4
 pandas
 tqdm
+requests
