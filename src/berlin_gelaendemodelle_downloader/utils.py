@@ -20,7 +20,7 @@ def file_content_2_data_frame(file_content: str) -> DataFrame:
     """
     
     # list comprehension for performance
-    return DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content.splitlines()]])
+    return DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content]])
     
 
 def data_frame_2_file_content(data_frame: DataFrame) -> list:
@@ -31,11 +31,25 @@ def data_frame_2_file_content(data_frame: DataFrame) -> list:
         data_frame: to be serialized
 
     Returns:
-        list: of lines for serialization as file
+        list: list of lines for serialization as file
     """
 
     # list comprehension for performance
     return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in data_frame.values]
+
+
+def download_2_file_content(download_content: str) -> list:
+    """
+    Converts the ``download_content`` into proper format.
+    
+    Args:
+        download_content (str): content of download
+    
+    Returns:
+        list: list of lines for serialization as file
+    """
+
+    return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in [row.split(" ") for row in download_content.splitlines()]]
 
 
 def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
