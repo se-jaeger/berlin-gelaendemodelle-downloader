@@ -13,7 +13,15 @@ Compression means tiles, shaped as windows, are averaged. Because one subset of 
 
 ## Getting Started
 
-WIP
+Install the package
+```bash
+pip3 install berlin-opendata-downloader
+```
+
+Run the client:
+```bash
+berlin_downloader download ~/berlin_height --compress 5 --keep_original
+```
 
 
 ## Features - WIP
