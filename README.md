@@ -3,6 +3,8 @@
 
 Downloads [Berlins' height information](https://www.stadtentwicklung.berlin.de/geoinformation/landesvermessung/atkis/de/dgm.shtml) (Digitale Geländemodelle – ATKIS DGM - Höheninformationen), compress them on the fly, and create GeoJSON files.
 
+**Official Documentation:** https://berlin-gelaendemodelle-downloader.readthedocs.io/en/latest/
+
 
 ## What means 'Compress'
 
@@ -16,11 +18,13 @@ WIP
 
 ## Features - WIP
 
-- [ ] Write Publish documentation
+- [x] Publish documentation
+- [ ] Write documentation + Readme
 - [x] Create some output
 - [x] Download the whole dataset
 - [x] Compress it on the fly (choose tile size (2000 should be divisible by tile size without remainder))
 - [x] Keep original data (flag)
+- [ ] Publish to https://pypi.org
 - [ ] choose download file data type
 
 
