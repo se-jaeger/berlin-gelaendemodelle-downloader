@@ -24,7 +24,7 @@ berlin_downloader download ~/berlin_height --compress 5 --keep_original
 ```
 
 
-## Features - WIP
+## TODOs
 
 - [x] Publish documentation
 - [ ] Write documentation + Readme
@@ -34,6 +34,7 @@ berlin_downloader download ~/berlin_height --compress 5 --keep_original
 - [x] Keep original data (flag)
 - [x] Publish to https://pypi.org
 - [ ] choose download file data type
+- [ ] Thank you sectio
 
 
 ## Note
