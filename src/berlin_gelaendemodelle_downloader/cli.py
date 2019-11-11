@@ -15,7 +15,7 @@ def cli():
     """
 
 
-@cli.command()
+@cli.command(context_settings=dict(help_option_names=['-h', '--help']))
 @click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
 @click.option("--keep_original", is_flag=True, type=bool, help="Keeps the original files.")
 @click.option("--compress", default=0, type=int, help="Indicates how many tiles should be compressed to one.\n\t<= 0 means no compression and automatically keeps the original ones.\n\t2000 have to be divisible by this without remainder.")
