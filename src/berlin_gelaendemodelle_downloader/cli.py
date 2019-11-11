@@ -21,6 +21,10 @@ def cli():
 @click.option("--keep-original", type=bool, is_flag=True, help=KEEP_ORIGIGNAL_HELP)
 @click.option("--compress", type=int, default=COMPRESS_DEFAULT, help=COMPRESS_HELP)
 @click.option("--file-format", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=True), default=SUPPORTED_FILE_FORMATS_DEFAULT, help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
+def download(download_path: str, keep_original: bool, compress: int, file_format: tuple):
+    """
+    Downloads height information of Berlin to DOWNLOAD-PATH.
+    """
 
     # Set constraints
     if compress <= 0:
