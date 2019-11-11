@@ -1,11 +1,12 @@
-import os
 import click
 
 from tqdm import tqdm
 
-from .download import get_subset_links, download_zip
 from .file import save_files
+from .download import get_subset_links, download_zip
 from .utils import file_content_2_data_frame, create_directories, compress_data_frame, data_frame_2_geo_data_frame
+from .constant import COMPRESS_HELP, KEEP_ORIGIGNAL_HELP, COMPRESS_DEFAULT, SUPPORTED_FILE_FORMATS_DEFAULT, SUPPORTED_FILE_FORMATS_HELP, SUPPORTED_FILE_FORMATS_CHOICE, GEOJSON_FILE_FORMAT
+
 
 
 @click.group()

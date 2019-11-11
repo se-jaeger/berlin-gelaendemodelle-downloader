@@ -1,14 +1,11 @@
-
 import re
 import os
 
-from glob import glob
+from pandas import DataFrame
 
-import pandas as pd
-import geopandas as gpd
+from .utils import data_frame_2_file_content, file_content_2_data_frame, data_frame_2_geo_data_frame
+from .constant import ORIGNAL_SUB_PATH, COMPRESSED_SUB_PATH, TXT_FILE_FORMAT, GEOJSON_FILE_FORMAT, CSV_FILE_FORMAT
 
-from .constant import ORIGNAL_SUB_PATH, COMPRESSED_SUB_PATH, TXT_FILE_FORMAT
-from .utils import data_frame_2_file_content
 
 
 def write_file_content_as_txt(download_path: str, file_name: str, file_content: list) ->  None:

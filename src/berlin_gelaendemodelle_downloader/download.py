@@ -10,6 +10,7 @@ from .constant import DATA_URL
 from .utils import download_2_file_content
 
 
+
 def get_subset_links() -> list:
     """
     Get list of links for subsets of data.
