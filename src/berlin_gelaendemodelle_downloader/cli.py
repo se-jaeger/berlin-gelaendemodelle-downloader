@@ -27,19 +27,17 @@ def download(download_path: str, keep_original: bool, compress: int, file_format
     original_path, compressed_path = create_directories(download_path, keep_original)
     links = get_subset_links()
 
+    # Without compression: download and keep the original files.
     if compress <= 0:
-        keep_original = True
-        
         for link in tqdm(links):
 
             file_name, file_content = download_zip(link)
-
-            if keep_original:
-                write_file_content(original_path, file_name, file_content)
+            write_file_content(original_path, file_name, file_content)
 
         fix_file_names(download_path)
 
 
+    # With compression: download and compress the data. Only save the originals it ``--keep-original`` is set.
     elif 2000 % compress == 0:
         for link in tqdm(links):
 
