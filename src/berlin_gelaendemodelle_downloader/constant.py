@@ -11,6 +11,7 @@ TXT_FILE_FORMAT     = "txt"
 GEOJSON_FILE_FORMAT = "geojson"
 CSV_FILE_FORMAT     = "csv"
 
+SUPPORTED_FILE_FORMATS_DEFAULT  = [CSV_FILE_FORMAT]
 SUPPORTED_FILE_FORMATS_CHOICE   = [TXT_FILE_FORMAT, GEOJSON_FILE_FORMAT, CSV_FILE_FORMAT]
 
 
@@ -18,7 +19,6 @@ SUPPORTED_FILE_FORMATS_CHOICE   = [TXT_FILE_FORMAT, GEOJSON_FILE_FORMAT, CSV_FIL
 
 ORIGNAL_SUB_PATH    = "original"
 COMPRESSED_SUB_PATH = "compressed"
-
 
 
 DATA_URL = "https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=a_dgm@senstadt&type=FEED"
