@@ -20,7 +20,7 @@ def cli():
 @click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
 @click.option("--keep-original", type=bool, is_flag=True, help=KEEP_ORIGIGNAL_HELP)
 @click.option("--compress", type=int, default=COMPRESS_DEFAULT, help=COMPRESS_HELP)
-@click.option("--file-formats", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=False), default=SUPPORTED_FILE_FORMATS_DEFAULT, help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
+@click.option("--file-formats", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=True), default=SUPPORTED_FILE_FORMATS_DEFAULT, help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
 def download(download_path: str, keep_original: bool, compress: int, file_formats: tuple):
 
     # Set constraints
