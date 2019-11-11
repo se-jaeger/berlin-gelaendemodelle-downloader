@@ -5,14 +5,15 @@ import os
 from glob import glob
 
 
-def write_file_content(download_path: str, file_name: str, file_content: str) ->  None:
+
+def write_file_content(download_path: str, file_name: str, file_content: list) ->  None:
     """
-    Writes the given ``file_content`` to the given path.
+    Writes the given ``file_content`` to the given path as txt file.
 
     Args:
         download_path (str): directory
         file_name (str): file name
-        file_content (str): file content
+        file_content (list): list of lines for serialization as file
     """
 
     with open(os.path.join(download_path, file_name), mode="w") as file:

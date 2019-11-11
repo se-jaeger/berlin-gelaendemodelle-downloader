@@ -34,7 +34,7 @@ def download_zip(zip_url: str) -> (str, str):
         zip_url (str): URL to a zip subset of the data
 
     Returns:
-        (str, str): file name and content of the file that is included in the zip archiv
+        (str, list): file name and content of the file that is included in the zip archiv
 
     Raises:
         HTTPError: Will be raised if the ``zip_url`` responsed a not 200 code

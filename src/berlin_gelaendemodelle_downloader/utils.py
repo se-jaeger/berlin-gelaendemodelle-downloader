@@ -44,7 +44,7 @@ def download_2_file_content(download_content: str) -> list:
     
     Args:
         download_content (str): content of download
-    
+
     Returns:
         list: list of lines for serialization as file
     """
@@ -61,7 +61,7 @@ def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
     Args:
         data_frame (DataFrame): Original DataFrame
         tile_size (int): window size
-        
+
     Returns:
         DataFrame: The compressed pandas.DataFrame
     """
@@ -126,11 +126,10 @@ def create_directories(download_path: str, keep_original: bool, file_formats: tu
         os.mkdir(compressed_path)
 
     for file_format in file_formats:
-        
+
         directory = os.path.join(compressed_path, file_format)
         
         if not os.path.exists(directory):
             os.mkdir(directory)
 
     return original_path, compressed_path
-    
