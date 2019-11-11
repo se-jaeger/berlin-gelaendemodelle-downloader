@@ -20,11 +20,10 @@ def cli():
 @click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
 @click.option("--keep-original", type=bool, is_flag=True, help=KEEP_ORIGIGNAL_HELP)
 @click.option("--compress", type=int, default=COMPRESS_DEFAULT, help=COMPRESS_HELP)
-@click.option("--file-format", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=False), help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
-def download(download_path: str, keep_original: bool, compress: int, file_format: tuple):
+@click.option("--file-formats", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=False), help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
 
     # creats all necessary directories
-    original_path, compressed_path = create_directories(download_path, keep_original)
+    original_path, compressed_path = create_directories(download_path, keep_original, file_formats)
     links = get_subset_links()
 
     # Without compression: download and keep the original files.
