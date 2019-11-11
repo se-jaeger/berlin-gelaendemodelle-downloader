@@ -21,10 +21,11 @@ def file_content_2_data_frame(file_content: str) -> DataFrame:
     Returns:
         DataFrame: Content of file as DataFrame
     """
-    
-    # list comprehension for performance
-    return DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content]])
-    
+
+    data_frame = DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content]])
+    data_frame.columns = ["x", "y", "height"]
+    return data_frame
+
 
 def data_frame_2_file_content(data_frame: DataFrame) -> list:
     """
@@ -47,7 +48,7 @@ def data_frame_2_file_content(data_frame: DataFrame) -> list:
 def download_2_file_content(download_content: str) -> list:
     """
     Converts the ``download_content`` into proper format.
-    
+
     Args:
         download_content (str): content of download
 
@@ -137,8 +138,9 @@ def create_directories(download_path: str, keep_original: bool, compress: int, f
         original_format_path = os.path.join(original_path, file_format.lower())
         compressed_format_directory = os.path.join(compressed_path, file_format.lower())
         
-        if not os.path.exists(original_format_path):
-            os.mkdir(original_format_path)
+        if keep_original:
+            if not os.path.exists(original_format_path):
+                os.mkdir(original_format_path)
 
         if not os.path.exists(compressed_format_directory):
             os.mkdir(compressed_format_directory)
