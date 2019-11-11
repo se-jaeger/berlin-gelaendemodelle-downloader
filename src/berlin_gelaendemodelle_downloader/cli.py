@@ -6,6 +6,7 @@ from tqdm import tqdm
 from .download import get_subset_links, download_zip
 from .file import fix_file_names, write_file_content
 from .utils import file_content_2_data_frame, create_directories, compress_data_frame, data_frame_2_file_content
+from .constant import COMPRESS_HELP, KEEP_ORIGIGNAL_HELP
 
 
 @click.group()
@@ -17,8 +18,8 @@ def cli():
 
 @cli.command(context_settings=dict(help_option_names=['-h', '--help']))
 @click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
-@click.option("--keep_original", is_flag=True, type=bool, help="Keeps the original files.")
-@click.option("--compress", default=0, type=int, help="Indicates how many tiles should be compressed to one.\n\t<= 0 means no compression and automatically keeps the original ones.\n\t2000 have to be divisible by this without remainder.")
+@click.option("--keep_original", is_flag=True, type=bool, help=KEEP_ORIGIGNAL_HELP)
+@click.option("--compress", default=0, type=int, help=COMPRESS_HELP)
 def download(download_path: str, keep_original: bool, compress: int):
 
     # creats all necessary directories
