@@ -19,5 +19,6 @@
 Click
 beautifulsoup4
 pandas
+geopandas
 tqdm
 requests

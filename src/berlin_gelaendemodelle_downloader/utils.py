@@ -4,6 +4,8 @@ import math
 import numpy as np
 
 from pandas import DataFrame
+from geopandas import GeoDataFrame
+from shapely.geometry.polygon import Polygon
 
 from .constant import COMPRESSED_SUB_PATH, ORIGNAL_SUB_PATH
 
@@ -138,3 +140,23 @@ def create_directories(download_path: str, keep_original: bool, compress: int, f
             os.mkdir(compressed_format_directory)
 
     return original_path, compressed_path
+
+
+def create_geo_data_frame(data_frame: DataFrame) -> GeoDataFrame:
+    """
+    Creates a ``GeoDataFrame`` from the given ``DataFrame``
+
+    Args:
+        data_frame (DataFrame): ``DataFrame`` that is used to create a ``GeoDataFrame`` with geometric information.
+
+    Returns:
+        GeoDataFrame: Created ``GeoDataFrame``.
+    """
+
+    data_frame_sorted = data_frame["x"].sort_values()
+    tile_size = data_frame_sorted[1] - data_frame_sorted[0]
+
+    geo_data_frame = GeoDataFrame([[x, y, height, Polygon(((x, y), (x + tile_size, y), (x + tile_size, y + tile_size), (x, y + tile_size), (x, y)))] for x, y, height in data_frame.values])
+    geo_data_frame.columns = ["x", "y", "height", "geometry"]
+
+    return geo_data_frame
