@@ -7,7 +7,7 @@ SUPPORTED_FILE_FORMATS_HELP = "File formats that can be used to store the downlo
 
 COMPRESS_DEFAULT = 0
 
-SUPPORTED_FILE_FORMATS_DEFAULT  = "txt"
+SUPPORTED_FILE_FORMATS_DEFAULT  = ["txt"]
 SUPPORTED_FILE_FORMATS_CHOICE   = ["txt"] # TODO: GeoJson, CSV
 
 

@@ -103,13 +103,14 @@ def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
     return compressed_data_frame
 
 
-def create_directories(download_path: str, keep_original: bool, file_formats: tuple) -> (str, str):
+def create_directories(download_path: str, keep_original: bool, compress: int, file_formats: tuple) -> (str, str):
     """
     Simple helper function that creates all necessary directories.
 
     Args:
         download_path (str): download path
         keep_original (bool): indicates whether the original directory is necessary or not.
+        compress (int): compression rate
         file_formats (tuple): indicates the file types to save.
 
     Returns:
@@ -122,14 +123,18 @@ def create_directories(download_path: str, keep_original: bool, file_formats: tu
     if not os.path.exists(original_path) and keep_original:
         os.mkdir(original_path)
 
-    if not os.path.exists(compressed_path):
+    if not os.path.exists(compressed_path) and compress > 0:
         os.mkdir(compressed_path)
 
     for file_format in file_formats:
 
-        directory = os.path.join(compressed_path, file_format)
+        original_format_path = os.path.join(original_path, file_format.lower())
+        compressed_format_directory = os.path.join(compressed_path, file_format.lower())
         
-        if not os.path.exists(directory):
-            os.mkdir(directory)
+        if not os.path.exists(original_format_path):
+            os.mkdir(original_format_path)
+
+        if not os.path.exists(compressed_format_directory):
+            os.mkdir(compressed_format_directory)
 
     return original_path, compressed_path

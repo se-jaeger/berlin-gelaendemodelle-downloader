@@ -1,4 +1,6 @@
 import io
+import os
+import re
 import zipfile
 import requests
 
@@ -54,6 +56,11 @@ def download_zip(zip_url: str) -> (str, str):
         # Zip archives only contain a single file
         file_name = zipped_sub_set.namelist()[0]
         download_content = zipped_sub_set.read(file_name).decode("utf8")
+
+        # fix not consistant file names if necessary
+        if not re.match(r".*\d{3}_\d{4}\.txt", file_name):
+            file_name = os.path.splitext(file_name)[0]
+            file_name = f"{file_name[:3]}_{file_name[-4:]}.txt"
 
         return file_name, download_2_file_content(download_content)
 
