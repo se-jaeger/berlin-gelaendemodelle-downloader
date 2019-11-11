@@ -37,8 +37,11 @@ def data_frame_2_file_content(data_frame: DataFrame) -> list:
         list: list of lines for serialization as file
     """
 
-    # list comprehension for performance
-    return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in data_frame.values]
+    if isinstance(data_frame, GeoDataFrame):
+        return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height, _ in data_frame.values]
+
+    elif isinstance(data_frame, DataFrame):
+        return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in data_frame.values]
 
 
 def download_2_file_content(download_content: str) -> list:
