@@ -6,7 +6,7 @@ from tqdm import tqdm
 from .download import get_subset_links, download_zip
 from .file import fix_file_names, write_file_content
 from .utils import file_content_2_data_frame, create_directories, compress_data_frame, data_frame_2_file_content
-from .constant import COMPRESS_HELP, KEEP_ORIGIGNAL_HELP
+from .constant import COMPRESS_HELP, KEEP_ORIGIGNAL_HELP, COMPRESS_DEFAULT, SUPPORTED_FILE_FORMATS_DEFAULT, SUPPORTED_FILE_FORMATS_HELP, SUPPORTED_FILE_FORMATS_CHOICE
 
 
 @click.group()
@@ -18,9 +18,10 @@ def cli():
 
 @cli.command(context_settings=dict(help_option_names=['-h', '--help']))
 @click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
-@click.option("--keep_original", is_flag=True, type=bool, help=KEEP_ORIGIGNAL_HELP)
-@click.option("--compress", default=0, type=int, help=COMPRESS_HELP)
-def download(download_path: str, keep_original: bool, compress: int):
+@click.option("--keep-original", type=bool, is_flag=True, help=KEEP_ORIGIGNAL_HELP)
+@click.option("--compress", type=int, default=COMPRESS_DEFAULT, help=COMPRESS_HELP)
+@click.option("--file-format", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=False), help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
+def download(download_path: str, keep_original: bool, compress: int, file_format: tuple):
 
     # creats all necessary directories
     original_path, compressed_path = create_directories(download_path, keep_original)
