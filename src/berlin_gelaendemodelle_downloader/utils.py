@@ -142,7 +142,7 @@ def create_directories(download_path: str, keep_original: bool, compress: int, f
     return original_path, compressed_path
 
 
-def create_geo_data_frame(data_frame: DataFrame) -> GeoDataFrame:
+def data_frame_2_geo_data_frame(data_frame: DataFrame) -> GeoDataFrame:
     """
     Creates a ``GeoDataFrame`` from the given ``DataFrame``
 
