@@ -17,18 +17,17 @@ def cli():
 
 
 @cli.command(context_settings=dict(help_option_names=['-h', '--help']))
-@click.argument("download_path", type=click.Path(exists=True, dir_okay=True, writable=True))
+@click.argument("download-path", type=click.Path(exists=True, dir_okay=True, writable=True))
 @click.option("--keep-original", type=bool, is_flag=True, help=KEEP_ORIGIGNAL_HELP)
 @click.option("--compress", type=int, default=COMPRESS_DEFAULT, help=COMPRESS_HELP)
-@click.option("--file-formats", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=True), default=SUPPORTED_FILE_FORMATS_DEFAULT, help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
-def download(download_path: str, keep_original: bool, compress: int, file_formats: tuple):
+@click.option("--file-format", type=click.Choice(SUPPORTED_FILE_FORMATS_CHOICE, case_sensitive=True), default=SUPPORTED_FILE_FORMATS_DEFAULT, help=SUPPORTED_FILE_FORMATS_HELP, multiple=True)
 
     # Set constraints
     if compress <= 0:
         keep_original = True
 
     # creats all necessary directories
-    original_path, compressed_path = create_directories(download_path, keep_original, compress, file_formats)
+    original_path, compressed_path = create_directories(download_path, keep_original, compress, file_format)
     links = get_subset_links()
 
     # Without compression: download and keep the original files.
@@ -36,7 +35,7 @@ def download(download_path: str, keep_original: bool, compress: int, file_format
         for link in tqdm(links):
 
             file_name, file_content = download_zip(link)
-            save_files(download_path, file_name, file_content, None, file_formats, keep_original)
+            save_files(download_path, file_name, file_content, None, file_format, keep_original)
 
 
     # With compression: download and compress the data. Only save the originals it ``--keep-original`` is set.
