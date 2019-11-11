@@ -51,7 +51,10 @@ def download(download_path: str, keep_original: bool, compress: int, file_format
             data_frame = file_content_2_data_frame(file_content)
             compressed_data_frame = compress_data_frame(data_frame, compress)
 
-            save_files(download_path, file_name, file_content, compressed_data_frame, file_formats, keep_original)
+            if GEOJSON_FILE_FORMAT in file_format:
+                compressed_data_frame = data_frame_2_geo_data_frame(compressed_data_frame)
+
+            save_files(download_path, file_name, file_content, compressed_data_frame, file_format, keep_original)
 
     else:
         raise click.BadParameter("Argument 'compress' have to divide 2000 without remainder.")
