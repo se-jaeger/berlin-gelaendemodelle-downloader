@@ -3,6 +3,7 @@ Download Client for Berlin Geländemodelle
 ============================================
 
 
+Have a look at the README.md file of the `repository <https://github.com/se-jaeger/berlin-gelaendemodelle-downloader>`_ to get more information.
 
 
 Contents

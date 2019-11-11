@@ -4,8 +4,11 @@ import math
 import numpy as np
 
 from pandas import DataFrame
+from geopandas import GeoDataFrame
+from shapely.geometry.polygon import Polygon
 
 from .constant import COMPRESSED_SUB_PATH, ORIGNAL_SUB_PATH
+
 
 
 def file_content_2_data_frame(file_content: str) -> DataFrame:
@@ -18,10 +21,11 @@ def file_content_2_data_frame(file_content: str) -> DataFrame:
     Returns:
         DataFrame: Content of file as DataFrame
     """
-    
-    # list comprehension for performance
-    return DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content]])
-    
+
+    data_frame = DataFrame([[int(x), int(y), float(height)] for x, y, height in [row.split(" ") for row in file_content]])
+    data_frame.columns = ["x", "y", "height"]
+    return data_frame
+
 
 def data_frame_2_file_content(data_frame: DataFrame) -> list:
     """
@@ -34,17 +38,20 @@ def data_frame_2_file_content(data_frame: DataFrame) -> list:
         list: list of lines for serialization as file
     """
 
-    # list comprehension for performance
-    return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in data_frame.values]
+    if isinstance(data_frame, GeoDataFrame):
+        return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height, _ in data_frame.values]
+
+    elif isinstance(data_frame, DataFrame):
+        return [f"{int(x)} {int(y)} {round(float(height), 2)}" for x, y, height in data_frame.values]
 
 
 def download_2_file_content(download_content: str) -> list:
     """
     Converts the ``download_content`` into proper format.
-    
+
     Args:
         download_content (str): content of download
-    
+
     Returns:
         list: list of lines for serialization as file
     """
@@ -61,7 +68,7 @@ def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
     Args:
         data_frame (DataFrame): Original DataFrame
         tile_size (int): window size
-        
+
     Returns:
         DataFrame: The compressed pandas.DataFrame
     """
@@ -103,13 +110,15 @@ def compress_data_frame(data_frame: DataFrame, tile_size: int) -> DataFrame:
     return compressed_data_frame
 
 
-def create_directories(download_path: str, keep_original: bool) -> (str, str):
+def create_directories(download_path: str, keep_original: bool, compress: int, file_formats: tuple) -> (str, str):
     """
     Simple helper function that creates all necessary directories.
 
     Args:
         download_path (str): download path
         keep_original (bool): indicates whether the original directory is necessary or not.
+        compress (int): compression rate
+        file_formats (tuple): indicates the file types to save.
 
     Returns:
         str, str: path for original files, path for compressed files
@@ -121,8 +130,39 @@ def create_directories(download_path: str, keep_original: bool) -> (str, str):
     if not os.path.exists(original_path) and keep_original:
         os.mkdir(original_path)
 
-    if not os.path.exists(compressed_path):
+    if not os.path.exists(compressed_path) and compress > 0:
         os.mkdir(compressed_path)
 
+    for file_format in file_formats:
+
+        original_format_path = os.path.join(original_path, file_format.lower())
+        compressed_format_directory = os.path.join(compressed_path, file_format.lower())
+        
+        if keep_original:
+            if not os.path.exists(original_format_path):
+                os.mkdir(original_format_path)
+
+        if not os.path.exists(compressed_format_directory):
+            os.mkdir(compressed_format_directory)
+
     return original_path, compressed_path
-    
+
+
+def data_frame_2_geo_data_frame(data_frame: DataFrame) -> GeoDataFrame:
+    """
+    Creates a ``GeoDataFrame`` from the given ``DataFrame``
+
+    Args:
+        data_frame (DataFrame): ``DataFrame`` that is used to create a ``GeoDataFrame`` with geometric information.
+
+    Returns:
+        GeoDataFrame: Created ``GeoDataFrame``.
+    """
+
+    data_frame_sorted = data_frame["x"].sort_values()
+    tile_size = data_frame_sorted[1] - data_frame_sorted[0]
+
+    geo_data_frame = GeoDataFrame([[x, y, height, Polygon(((x, y), (x + tile_size, y), (x + tile_size, y + tile_size), (x, y + tile_size), (x, y)))] for x, y, height in data_frame.values])
+    geo_data_frame.columns = ["x", "y", "height", "geometry"]
+
+    return geo_data_frame
