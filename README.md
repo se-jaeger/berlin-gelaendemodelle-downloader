@@ -1,6 +1,8 @@
 
 # Download Client for Berlin Geländemodelle
 
+[![PyPI version](https://badge.fury.io/py/berlin-opendata-downloader.svg)](https://badge.fury.io/py/berlin-opendata-downloader) [![PyPI downloads month](https://img.shields.io/pypi/dm/berlin-opendata-downloader.svg)](https://img.shields.io/pypi/dm/berlin-opendata-downloader.svg) [![PyPI downloads week](https://img.shields.io/pypi/dw/berlin-opendata-downloader.svg)](https://img.shields.io/pypi/dw/berlin-opendata-downloader.svg) [![PyPI downloads day](https://img.shields.io/pypi/dd/berlin-opendata-downloader.svg)](https://img.shields.io/pypi/dm/berlin-opendata-downloader.svg) 
+
 Downloads [Berlins' height information](https://www.stadtentwicklung.berlin.de/geoinformation/landesvermessung/atkis/de/dgm.shtml) (Digitale Geländemodelle – ATKIS DGM - Höheninformationen), can compress them on the fly, and creates GeoJSON, CSV or txt files if desired.
 
 **Documentation:** https://berlin-gelaendemodelle-downloader.readthedocs.io/en/latest/
