@@ -162,7 +162,7 @@ def data_frame_2_geo_data_frame(data_frame: DataFrame) -> GeoDataFrame:
     data_frame_sorted = data_frame["x"].sort_values()
     tile_size = data_frame_sorted[1] - data_frame_sorted[0]
 
-    geo_data_frame = GeoDataFrame([[x, y, height, Polygon(((x, y), (x + tile_size, y), (x + tile_size, y + tile_size), (x, y + tile_size), (x, y)))] for x, y, height in data_frame.values])
+    geo_data_frame = GeoDataFrame([[x, y, height, Polygon(((x, y), (x + tile_size, y), (x + tile_size, y + tile_size), (x, y + tile_size), (x, y)))] for x, y, height in data_frame.values], crs={"init": "epsg:25833"}) # Coordinate System Source: https://www.stadtentwicklung.berlin.de/geoinformation/landesvermessung/atkis/de/dgm.shtml
     geo_data_frame.columns = ["x", "y", "height", "geometry"]
 
     return geo_data_frame
