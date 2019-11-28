@@ -19,15 +19,37 @@ The following image ([Original](http://fbarc.stadt-berlin.de/FIS_Broker_Atom//Bl
 
 ## Getting Started
 
-Install the package
+Follow these instructions to get the `berlin-downloader` up and running.
+
+
+### Prerequisites
+
+- python 3.6 or greater
+- pip3
+
+
+### Installation
+
 ```bash
 pip3 install berlin-opendata-downloader
 ```
 
-Run the client (example):
+or directly from the repository:
+
+```bash
+git clone https://github.com/se-jaeger/berlin-gelaendemodelle-downloader
+cd berlin-gelaendemodelle-downloader
+python setup.py install
+```
+
+
+### Example Usage
+
 ```bash
 berlin_downloader download ~/berlin_height --compress 5 --keep_original --file-format csv --file-format geojson
 ```
+
+Downloads and saves the data at `~/berlin_height` as vsc and geojson file, as well as compressed csv and geojson files.
 
 
 ## Thank You! :heart:
