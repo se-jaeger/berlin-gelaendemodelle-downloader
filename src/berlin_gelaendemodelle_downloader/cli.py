@@ -1,10 +1,6 @@
 import click
 
-from tqdm import tqdm
-
-from .file import save_files
-from .download import get_subset_links, download_zip
-from .utils import file_content_2_data_frame, create_directories, compress_data_frame, data_frame_2_geo_data_frame
+from .download import download_data
 from .constant import COMPRESS_HELP, KEEP_ORIGIGNAL_HELP, COMPRESS_DEFAULT, SUPPORTED_FILE_FORMATS_DEFAULT, SUPPORTED_FILE_FORMATS_HELP, SUPPORTED_FILE_FORMATS_CHOICE, GEOJSON_FILE_FORMAT
 
 
@@ -26,35 +22,4 @@ def download(download_path: str, keep_original: bool, compress: int, file_format
     Downloads height information of Berlin to DOWNLOAD-PATH.
     """
 
-    # Set constraints
-    if compress <= 0:
-        keep_original = True
-
-    # creats all necessary directories
-    original_path, compressed_path = create_directories(download_path, keep_original, compress, file_format)
-    links = get_subset_links()
-
-    # Without compression: download and keep the original files.
-    if compress <= 0:
-        for link in tqdm(links):
-
-            file_name, file_content = download_zip(link)
-            save_files(download_path, file_name, file_content, None, file_format, keep_original)
-
-
-    # With compression: download and compress the data. Only save the originals it ``--keep-original`` is set.
-    elif 2000 % compress == 0:
-        for link in tqdm(links):
-
-            file_name, file_content = download_zip(link)
-
-            data_frame = file_content_2_data_frame(file_content)
-            compressed_data_frame = compress_data_frame(data_frame, compress)
-
-            if GEOJSON_FILE_FORMAT in file_format:
-                compressed_data_frame = data_frame_2_geo_data_frame(compressed_data_frame)
-
-            save_files(download_path, file_name, file_content, compressed_data_frame, file_format, keep_original)
-
-    else:
-        raise click.BadParameter("Argument 'compress' have to divide 2000 without remainder.")
+    download_data(download_path=download_path, keep_original=keep_original, compress=compress, file_format=file_format)
